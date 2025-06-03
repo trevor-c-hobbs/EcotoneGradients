@@ -76,7 +76,7 @@ To ensure completeness, the four shapefiles were cleaned by removing empty recor
 The [Generate Tessellation](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/generatetesellation.htm) tool was used to generate "plot" boundaries around the GLO data. The shape type was set to transverse hexagon. Size was set to 1 square mile. The processing extent was set to the same as the subset GLO data. Next, using the Select By Location tool, hexagons that contain GLO point data were selected and exported to a new shapefile.
 
 ```{r fig.align="center", fig.cap="**Fig. 1**- Map showing subset of GLO trees (green points) within the project area (black outline).  Choropleth map below right show the number of trees within each cell"}
-knitr::include_graphics("Figures/Fig1.jpg")
+knitr::include_graphics("docs/Figures/Fig1.jpg")
 ```
 
 ### Summarize Species by Grid Samples
@@ -90,10 +90,10 @@ This section is intended to illustrate the data processing steps within R. Users
 ```{r message = FALSE, warning= FALSE}
 
 #read .csv file
-GLO<- read.csv(here("GLO_SpeciesBySample.csv"))
+GLO<- read.csv(here("data/GLO_SpeciesBySample.csv"))
 
 #read species codes lookup file
-SP<- read.csv(here("SpeciesCodes.csv"))
+SP<- read.csv(here("data/SpeciesCodes.csv"))
 ```
 
 The GLO data table needs to be reformatted slightly to make it appropriate for future steps. We'll use the dcast function to reorganize the table to wide format, and summarize the frequency of each species within the plot. Next the hexagon GRID_IDs are used to update the row names. Finally, the redundant column containing the GRID_IDs is removed.
@@ -206,7 +206,7 @@ This table can also be used in ArcGIS Pro to take advantage of the enhanced grap
 Viewing the 3rd dimension allows for speculation and testing of previously unseen ordination in the data cloud.  For example, the 3rd dimension cloud be interpreted as a surface water/groundwater dependence gradient, with BA (Fraxinus nigra- black ash)on the surface water-dependent end (corresponding to low DCA 2 scores), and CE (Thuja occidentalis—eastern white cedar) on the groundwater-dependent end (corresponding to high DCA 2 scores).
 
 ```{r fig.align="center", fig.cap="**Fig. 4**- Three-dimensional Detrended Correspondence Analysis (DCA) plot rendered in ArcGIS Pro Layout. The filled contours represent DCA3 axis scores. Ordinary kriging was used for interpolation between site points. The thin white line around the data points is a convex hull to delineate the range of reasonable kriging data for DCA 3"}
-knitr::include_graphics("Figures/DCA-3axis.jpg")
+knitr::include_graphics("docs/Figures/DCA-3axis.jpg")
 ```
 
 
@@ -241,19 +241,19 @@ High DCA 1 values in the southern and southeastern portions of the project area 
 This project area also contains the boundary between the mesic and frigid soil temperature regimes. As a result, the species ecotone shifts toward the cooler end of the spectrum (low DCA 1 values), where presettlement hardwoods such as sugar maple, beech, and ironwood predominated.
 
 ```{r fig.align="center", fig.cap="**Fig. 5**- Results of ordinary kriging of DCA 1 values of sites in the GLO data set.  Color ramp is distributed among 8 quantile breaks in the data."}
-knitr::include_graphics("Figures/DCA1map.jpg")
+knitr::include_graphics("docs/Figures/DCA1map.jpg")
 ```
 Low DCA 2 values in Fig. 6 appear clustered in and around riparian and wetland areas, particularly where groundwater is shallow. The ordination along the DCA 2 axis likely represents a gradient of groundwater and surface water dependence. Common species at the groundwater-dependent end (low DCA 2 scores) include eastern white cedar, red maple, and, to a lesser extent, ash species. In contrast, areas with high DCA 2 scores are typically clustered in upland locations with sandy or loamy sand textures and high precipitation recharge. Typical species in these areas include generic pine (most likely red pine or white pine).
 
 ```{r fig.align="center", fig.cap="**Fig. 6**- Results of ordinary kriging of DCA 2 values of sites in the GLO data set.  Color ramp is distributed among 8 quantile breaks in the data."}
-knitr::include_graphics("Figures/DCA2map.jpg")
+knitr::include_graphics("docs/Figures/DCA2map.jpg")
 ```
 
 The interpolation of DCA 3 values is more difficult to interpret (Fig. 7). Areas with high DCA 3 scores tend to be situated on flat footslopes at the base of major uplands or in landscape positions that are otherwise topographically protected. Species associated with high DCA 3 scores are similar to those found at the low end of DCA 2, including eastern white cedar and black ash. Conversely, areas with low DCA 3 scores tend to contain white pine, red pine, beech, and maple, are situated in more upland morainal landscapes, and exemplify mixed conifer-deciduous forests as recorded in the General Land Office (GLO) surveys.
 
 
 ```{r fig.align="center", fig.cap="**Fig. 7**- Results of ordinary kriging of DCA 3 values of sites in the GLO data set.  Color ramp is distributed among 8 quantile breaks in the data."}
-knitr::include_graphics("Figures/DCA3map.jpg")
+knitr::include_graphics("docs/Figures/DCA3map.jpg")
 ```
 ## Summary
 
